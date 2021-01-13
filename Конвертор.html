@@ -1,0 +1,30 @@
+<meta charset = 'utf-8'>
+<script type = 'text/javascript'>
+	const eur = 91.85;
+	const dlr = 74.54;
+	var a = parseFloat(prompt("Введите количество рублей"));
+	
+	function div (val_1, val_2){
+		return Math.floor(val_1/val_2)
+		}
+	
+	function mant (val_1, val_2){
+		return Math.round((val_1/val_2)%2*100)
+		}
+	
+	
+	if (dlr > a) { 
+		alert("У Вас недостаточно денег")
+		} 
+	else {
+		alert("Вы получите " + div(a,dlr) + " дол. " + mant(a,dlr) + " цент.");  
+		}
+	if (eur > a) { 
+		alert("У Вас недостаточно денег")
+		} 
+	else {	
+		alert("Вы получите " + div(a,eur) + " дол. " + mant(a,eur) + " цент.");
+		}
+	
+	
+</script>
