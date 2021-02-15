@@ -10,16 +10,13 @@ Four — 4
 записываться в новый текстовый файл.
 '''
 
-from googletrans import Translator
-translator = Translator()
-result = translator.translate('hello world', src='en', dest='ru')
-print(result.text)
+# from googletrans import Translator #Что-то не пошел у меня этот модуль (((, потом разберусь.
+# translator = Translator()
+# result = translator.translate('hello world', src='en', dest='ru')
+# print(result.text)
 
 with open('Listing.txt', 'r', encoding='utf-8') as lst:
-    # temp_buff = []
-    # for line in lst:
-    #     temp_buff.append(' '.join(line.split()[1::]))
-    temp_buff = [' '.join(line.split()[1::]) for line in lst]
+   temp_buff = [' '.join(line.split()[1::]) for line in lst]
 
 
 with open('New_listing.txt', 'w', encoding='utf-8') as new_lst:
