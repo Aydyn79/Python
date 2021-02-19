@@ -1,0 +1,4 @@
+The_firm_1 ООО 10000 5000
+Umbrella_corp ПАО 10000000 5000
+OC_Rosneft ПАО 10000000 5000000
+Unicorn ООО 5000 10000
