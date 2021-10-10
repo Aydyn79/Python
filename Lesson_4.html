@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Scriptlandia</title>
+
+</head>
+
+<body>
+	<script>
+		'use strict'
+		//1. (это задание делайте по желанию) Написать функцию, преобразующую число в объект. Передавая на
+		//вход число в диапазоне [0, 999]
+		function objMaker(numb = +prompt('Введите целое положительное число в диапазоне [0, 999]:')) {
+			if (!(0 <= numb && numb < 1000)) return alert('Введёное число выходит за рамки диапазона [0, 999]');
+			else if (!Number.isInteger(numb) && !'') return alert('Неверный формат ввода');
+			else {
+				const a = new Object();
+				a.units = numb % 10;
+				a.tens = (numb % 100 - numb % 10) / 10;
+				a.hundreds = (numb % 1000 - numb % 100) / 100;
+				return a;
+			}
+		}
+		console.log(objMaker());
+
+		//1.1 (это обязательное задание) Сделайте в стиле es5, а затем в стиле es6 (по аналогии из дополнительных
+		//видео -> 3 примеры наследования -> типы на es5 и es6)
+
+		//es5
+
+		function Product(name, price) {
+			this.name = name;
+			this.price = price;
+		}
+
+		Product.prototype.make25PercentDiscount = function () {
+			this.price *= 0.75;
+		}
+
+		const a = new Product('bread', 25);
+		console.log(a.name);
+		console.log(a.price);
+		a.make25PercentDiscount();
+		console.log(a.price);
+
+
+		//es6
+
+		class Product {
+			constructor(name, price) {
+				this.name = name;
+				this.price = price;
+			}
+			make25PercentDiscount() {
+				this.price *= 0.75;
+			}
+		}
+
+		const a = new Product('bread', 25);
+		console.log(a.name);
+		console.log(a.price);
+		a.make25PercentDiscount();
+		console.log(a.price);
+
+		//1.2 (это обязательное задание) Сделайте в стиле es5, а затем в стиле es6 
+		//а) конструктор Post, который принимает параметры author, text, date и сохраняет их как //свойства объекта....
+
+		//ES5
+
+		function Post(author, text, date) {
+			this.author = author;
+			this.text = text;
+			this.date = new Date(date);
+		}
+
+		Post.prototype.erase = function () {
+			this.text = ""; //это на случай если вообще хочется обнулить текст.
+		}
+
+		Post.prototype.edit = function (addtext) {
+			this.text += " " + addtext; //можно конечно стереть старый текст при вставке нового (this.text = addtext;)- это не трудно реализовать, но я решил добавлять новый текст к старому.
+		}
+
+		function attachedPost() {
+			Post.call(this);
+			this.highlighted = false;
+		}
+
+		attachedPost.prototype.makeTextHighlighted = function () {
+			this.highlighted = true;
+		}
+
+
+		const newpost = new Post('Ivan Taranov', 'Brewer Ivan Taranov got up very early today', '10.07.2021');
+		console.log(newpost.author);
+		console.log(newpost.text);
+		console.log(newpost.date);
+
+		newpost.edit('Ivan Ivanovich Ivanov goes without pants in the morning verse');
+		console.log(newpost);
+		newpost.erase();
+		console.log(newpost.text);
+
+		//ES6
+
+		class Post {
+			constructor(author, text, date) {
+				this.author = author;
+				this.text = text;
+				this.date = new Date(date);
+			}
+			erase() {
+				this.text = "";
+			}
+			edit(addtext) {
+				this.text += " " + addtext;
+			}
+		}
+
+		const newpost = new Post('Ivan Taranov', 'Brewer Ivan Taranov got up very early today', '10.07.2021');
+		console.log(newpost.author);
+		console.log(newpost.text);
+		console.log(newpost.date);
+		newpost.edit('Ivan Ivanovich Ivanov goes without pants in the morning verse');
+		console.log(newpost);
+		newpost.erase();
+		console.log(newpost.text);
+
+
+		class attachedPost extends Post {
+			constructor(author, text, date) {
+				super(author, text, date);
+				this.highlighted = false;
+			}
+			makeTextHighlighted() {
+				this.highlighted = true;
+			}
+		}
+
+		class example extends attachedPost { }
+		const apnew = new example('Taranov', 'Brewer Ivan today', '12.07.2021');
+		console.log(apnew.author);
+		console.log(apnew.text);
+		console.log(apnew.date);
+		console.log(apnew.highlighted);
+
+		const apnewpost = new attachedPost('Taranov', 'Brewer Ivan today', '12.07.2021')
+		console.log(apnewpost.author);
+		console.log(apnewpost.text);
+		console.log(apnewpost.date);
+		console.log(apnewpost.highlighted);
+		apnewpost.makeTextHighlighted();
+		console.log(apnewpost.highlighted);
+		apnewpost.edit('Ivan Ivanovich Ivanov');
+		console.log(apnewpost);
+		apnewpost.erase();
+		console.log(apnewpost.text);
+
+//2 (это задание не является частью учебной программы, делайте его по желанию). Для игры бродилка (которая
+//есть в дополнительных видео), добавить возможность ходить по диагонали цифрами 1, 3, 7, 9.
+
+//В этой игре надо было доделать..., а ничего там не надо было доделывать ))
+//В исходниках уже всё было сделано...)
+//Единственное, что я поправил - это извещения:
+//'Введите число (1,2,3,4,5,6,7,8), куда вы хотите переместиться, "Отмена" для выхода.' и
+//'Для перемещения необходимо ввести одно из чисел 1,2,3,4,5,6,7 или 8.'
+
+//Массив const availableDirections = [2, 4, 6, 8, 1, 3, 7, 9] в файле mover.js уже был дополнен числами 1, 3, 7, 9
+//и в методе getNextPosition были добавлены кейсы для чисел 1, 3, 7, 9
+
+//Метод canPlayerMakeStep тоже был доработан:
+//canPlayerMakeStep(nextPoint) {
+//        return nextPoint.x >= 0 &&
+//            nextPoint.x < config.colsCount && //и исключение возможности шага в стенку
+//            nextPoint.y >= 0 &&
+//            nextPoint.y < config.rowsCount; //тоже была сделано
+
+//с Вашего позволения я не буду прикладывать Ваш же код, поскольку он изначально был доработан в соответствии с заданием 2
+
+
+
+
+	</script>
+</body>
